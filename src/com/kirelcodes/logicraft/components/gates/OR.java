@@ -4,21 +4,18 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
 
-public class NOT extends Gate{
+public class OR extends Gate {
 
-	public NOT(Location loc){
-		super(loc , Material.DIRT , "NOT");
-		setNumberTransistors(1);
+	public OR(Location loc) {
+		super(loc, Material.GLASS, "OR");
 	}
-	
-	public NOT(ArmorStand armor) {
+	public OR(ArmorStand armor) {
 		super(armor);
-		setNumberTransistors(1);
 	}
 
 	@Override
 	public void redstoneUpdate() {
-		if(checkForConnection(getComponent().getLocation()) >= 1){
+		if(checkForConnection(getLocation()) == 0){
 			turnLever(getLocation(), false);
 			return;
 		}

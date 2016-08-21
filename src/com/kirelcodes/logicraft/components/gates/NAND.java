@@ -4,21 +4,17 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
 
-public class NOT extends Gate{
+public class NAND extends Gate{
 
-	public NOT(Location loc){
-		super(loc , Material.DIRT , "NOT");
-		setNumberTransistors(1);
+	public NAND(Location loc) {
+		super(loc, Material.GLOWSTONE, "NAND");
 	}
-	
-	public NOT(ArmorStand armor) {
+	public NAND(ArmorStand armor) {
 		super(armor);
-		setNumberTransistors(1);
 	}
-
 	@Override
 	public void redstoneUpdate() {
-		if(checkForConnection(getComponent().getLocation()) >= 1){
+		if(checkForConnection(getLocation()) >= 2){
 			turnLever(getLocation(), false);
 			return;
 		}

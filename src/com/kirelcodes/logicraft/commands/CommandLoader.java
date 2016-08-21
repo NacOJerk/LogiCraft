@@ -17,6 +17,7 @@ import com.kirelcodes.logicraft.components.gates.NOR;
 import com.kirelcodes.logicraft.components.gates.NOT;
 import com.kirelcodes.logicraft.components.gates.OR;
 import com.kirelcodes.logicraft.components.gates.XOR;
+import com.kirelcodes.logicraft.components.latchs.DLatch;
 
 public class CommandLoader {
 	public static void loadDemUP() {
@@ -181,6 +182,26 @@ public class CommandLoader {
 				return false;
 			}
 		});
+		cm.addCommand(new ExtendedCommandBase("DLATCH") {
+
+			@Override
+			public List<String> tabComplete(CommandSender sender, String alias,
+					String[] args) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public boolean executeCommand(CommandSender sender, String command,
+					String[] args, boolean sentViaPlayer) {
+				if (!sentViaPlayer)
+					return false;
+				Player p = (Player) sender;
+				new DLatch(p.getLocation());
+				return false;
+			}
+		});
+
 		cm.addCommand(new ExtendedCommandBase("clearGates") {
 
 			@Override

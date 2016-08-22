@@ -10,15 +10,8 @@ import com.kirelcodes.logicraft.utils.NBTRW;
 public class DLatch extends Latch {
 	public DLatch(Location loc) {
 		super(loc, Material.PUMPKIN, "D-LATCH");
-		ItemStack dataSaver = getComponent().getChestplate();
-		try {
-			dataSaver = NBTRW.writeNBT(dataSaver, "storedByte", false);
-		} catch (Exception e) {
-			getComponent().remove();
-			return;
-		}
-		getComponent().setChestplate(dataSaver);
-	}
+		setStoredByte(false);
+	}	
 
 	public DLatch(ArmorStand armor) {
 		super(armor);

@@ -7,7 +7,7 @@ import org.bukkit.entity.ArmorStand;
 public class AND extends Gate{
 
 	public AND(Location loc){
-		super(loc , Material.COAL_BLOCK , "AND");
+		super(loc , Material.REDSTONE_LAMP_OFF , "AND");
 		setNumberTransistors(2);
 	}
 	

@@ -10,6 +10,8 @@ import org.bukkit.entity.Player;
 
 import com.kirelcodes.logicraft.components.Component;
 import com.kirelcodes.logicraft.components.Transistor;
+import com.kirelcodes.logicraft.components.flipflops.DFlipFlop;
+import com.kirelcodes.logicraft.components.flipflops.TFlipFlop;
 import com.kirelcodes.logicraft.components.gates.AND;
 import com.kirelcodes.logicraft.components.gates.Bridge;
 import com.kirelcodes.logicraft.components.gates.NAND;
@@ -18,6 +20,8 @@ import com.kirelcodes.logicraft.components.gates.NOT;
 import com.kirelcodes.logicraft.components.gates.OR;
 import com.kirelcodes.logicraft.components.gates.XOR;
 import com.kirelcodes.logicraft.components.latchs.DLatch;
+import com.kirelcodes.logicraft.components.wireless.Receiver;
+import com.kirelcodes.logicraft.components.wireless.Transmitter;
 
 public class CommandLoader {
 	public static void loadDemUP() {
@@ -47,6 +51,86 @@ public class CommandLoader {
 				return false;
 			}
 		});
+		cm.addCommand(new ExtendedCommandBase("Transmitter") {
+
+			@Override
+			public List<String> tabComplete(CommandSender sender, String alias,
+					String[] args) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public boolean executeCommand(CommandSender sender, String command,
+					String[] args, boolean sentViaPlayer) {
+				if (!sentViaPlayer)
+					return false;
+				Player p = (Player) sender;
+				int x = Integer.parseInt(args[0]);
+				int y = Integer.parseInt(args[1]);
+				int z = Integer.parseInt(args[2]);
+				new Transmitter(p.getLocation(), x, y, z);
+				return false;
+			}
+		});
+		cm.addCommand(new ExtendedCommandBase("reciever") {
+
+			@Override
+			public List<String> tabComplete(CommandSender sender, String alias,
+					String[] args) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public boolean executeCommand(CommandSender sender, String command,
+					String[] args, boolean sentViaPlayer) {
+				if (!sentViaPlayer)
+					return false;
+				Player p = (Player) sender;
+				new Receiver(p.getLocation());
+				return false;
+			}
+		});
+		cm.addCommand(new ExtendedCommandBase("DFLIP") {
+
+			@Override
+			public List<String> tabComplete(CommandSender sender, String alias,
+					String[] args) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public boolean executeCommand(CommandSender sender, String command,
+					String[] args, boolean sentViaPlayer) {
+				if (!sentViaPlayer)
+					return false;
+				Player p = (Player) sender;
+				new DFlipFlop(p.getLocation());
+				return false;
+			}
+		});
+		cm.addCommand(new ExtendedCommandBase("TFLIP") {
+
+			@Override
+			public List<String> tabComplete(CommandSender sender, String alias,
+					String[] args) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public boolean executeCommand(CommandSender sender, String command,
+					String[] args, boolean sentViaPlayer) {
+				if (!sentViaPlayer)
+					return false;
+				Player p = (Player) sender;
+				new TFlipFlop(p.getLocation());
+				return false;
+			}
+		});
+
 		cm.addCommand(new ExtendedCommandBase("XOR") {
 
 			@Override

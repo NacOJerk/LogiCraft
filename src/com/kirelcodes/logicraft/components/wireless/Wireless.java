@@ -1,4 +1,4 @@
-package com.kirelcodes.logicraft.components.flipflops;
+package com.kirelcodes.logicraft.components.wireless;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -7,17 +7,17 @@ import org.bukkit.inventory.ItemStack;
 
 import com.kirelcodes.logicraft.components.Component;
 
-public abstract class FlipFlop extends Component {
+public abstract class Wireless extends Component{
 
-	public FlipFlop(Location loc , Material m  , String name , short damage){
+	public Wireless(Location loc , String name){
 		super(loc);
-		getComponent().setHelmet(new ItemStack(m , 1 , damage ));
+		getComponent().setHelmet(new ItemStack(Material.BEACON));
 		getComponent().setCustomName(name);
 		getComponent().setCustomNameVisible(true);
 	}
+
 	
-	
-	public FlipFlop(ArmorStand armor) {
+	public Wireless(ArmorStand armor) {
 		super(armor);
 	}
 

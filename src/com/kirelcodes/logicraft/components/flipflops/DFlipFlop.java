@@ -9,18 +9,11 @@ import com.kirelcodes.logicraft.utils.NBTRW;
 
 public class DFlipFlop extends FlipFlop {
 	
-	private boolean lastRed = false;
 	
 	public DFlipFlop(Location loc) {
-		super(loc, Material.REDSTONE_LAMP_OFF, "D-FlipFlop");
-		ItemStack dataSaver = getComponent().getChestplate();
-		try {
-			dataSaver = NBTRW.writeNBT(dataSaver, "storedByte", false);
-		} catch (Exception e) {
-			getComponent().remove();
-			return;
-		}
-		getComponent().setChestplate(dataSaver);
+		super(loc, Material.REDSTONE_LAMP_OFF, "D-FlipFlop", (short)15);
+		setLastRed(false);
+		setStoredByte(false);
 	}
 
 	public DFlipFlop(ArmorStand armor) {
@@ -44,28 +37,48 @@ public class DFlipFlop extends FlipFlop {
 		try{
 			dataSaver = NBTRW.writeNBT(dataSaver, "storedByte", onOf);
 			if(onOf)
-				getComponent().setHelmet( new ItemStack(Material.REDSTONE_LAMP_ON));
+				getComponent().setHelmet( new ItemStack(Material.WOOL , 1 , (short)0));
 			else
-				getComponent().setHelmet( new ItemStack(Material.REDSTONE_LAMP_OFF));
+				getComponent().setHelmet( new ItemStack(Material.WOOL , 1 , (short) 15));
 			getComponent().setChestplate(dataSaver);
 		}catch(Exception e){
 			return;
 		}
 
 	}
-	
+	private void setLastRed(boolean onOf){
+		ItemStack dataSaver = getComponent().getChestplate();
+		try{
+			dataSaver = NBTRW.writeNBT(dataSaver, "lastRed", onOf);
+			getComponent().setChestplate(dataSaver);
+		}catch(Exception e){
+			return;
+		}
+
+	}
+	private boolean getLastRed(){
+		ItemStack dataSaver = getComponent().getChestplate();
+		try{
+			if(!NBTRW.containsNBTTag(dataSaver, "lastRed")){
+				return false;
+			}
+			return NBTRW.getNBTBoolean(dataSaver, "lastRed");
+		}catch(Exception e){
+			return false;
+		}
+	}
 	@Override
 	public void redstoneUpdate() {
 		int repeater = checkForConnectionRepeater(getLocation());
 		int redstone = checkForConnection(getLocation());
-		if(!lastRed && redstone >= 1){
+		if(!getLastRed() && redstone >= 1){
 			if(repeater >= 1)
 				setStoredByte(true);
 			else
 				setStoredByte(false);
 		}
 		turnLever(getLocation(), onOff());
-		lastRed = redstone > 0;
+		setLastRed(redstone > 0);
 	}
 
 }

@@ -148,7 +148,15 @@ public abstract class Component {
 				if (lever.isPowered())
 					continue;
 				lever.setPowered(true);
+				try{
 				b.setData(lever.getData());
+				}catch(Exception e){
+					System.out.println("Block : " + b);
+					System.out.println("BlockData : " + b.getData());
+					System.out.println("LevelObject : " + lever);
+					System.out.println("LevelData : " + lever.getData());
+
+				}
 				b.getState().update(true);
 			} else {
 				if (b.getType() != Material.LEVER)
@@ -157,15 +165,24 @@ public abstract class Component {
 				if (!lever.isPowered())
 					continue;
 				lever.setPowered(false);
-				b.setData(lever.getData());
+				try{
+					b.setData(lever.getData());
+				}catch(Exception e){
+					System.out.println("Block : " + b);
+					System.out.println("BlockData : " + b.getData());
+					System.out.println("LevelObject : " + lever);
+					System.out.println("LevelData : " + lever.getData());
+				}
 				b.getState().update(true);
 			}
 		}
 	}
 	
-	public List<Entity> getNearByEntities(Location loc, double distance) {
+	public static List<Entity> getNearByEntities(Location loc, double distance) {
 		Chunk c = loc.getChunk();
 		List<Entity> entites = new ArrayList<>();
+		if(c.getEntities() == null || c.getEntities().length == 0)
+			return new ArrayList<>();
 		for (Entity e : c.getEntities()) {
 			if (e.getLocation().distanceSquared(loc) <= (distance * distance)) {
 				entites.add(e);
@@ -174,5 +191,15 @@ public abstract class Component {
 		return entites;
 	}
 
+	public List<Entity> getNearByEntities( double distance) {
+		Chunk c = getLocation().getChunk();
+		List<Entity> entites = new ArrayList<>();
+		for (Entity e : c.getEntities()) {
+			if (e.getLocation().distanceSquared(getLocation()) <= (distance * distance)) {
+				entites.add(e);
+			}
+		}
+		return entites;
+	}
 
 }

@@ -40,9 +40,9 @@ public class PulseLimiter extends Component{
 		try{
 			dataSaver = NBTRW.writeNBT(dataSaver, "storedByte", onOf);
 			if(onOf)
-				getComponent().setHelmet( new ItemStack(Material.JACK_O_LANTERN));
+				getComponent().setHelmet( new ItemStack(Material.SOUL_SAND));
 			else
-				getComponent().setHelmet( new ItemStack(Material.PUMPKIN));
+				getComponent().setHelmet( new ItemStack(Material.SOUL_SAND));
 			getComponent().setChestplate(dataSaver);
 		}catch(Exception e){
 			return;
@@ -52,7 +52,7 @@ public class PulseLimiter extends Component{
 
 	@Override
 	public void redstoneUpdate() {
-		if(checkForConnection(getLocation())>1){
+		if(checkForConnection(getLocation())>0){
 			if(onOff()){
 				turnLever(getLocation(), false);
 			}else{
@@ -67,10 +67,8 @@ public class PulseLimiter extends Component{
 				
 			}
 		}else{
-			if(onOff()){
-				turnLever(getLocation(), false);
-				setStoredByte(false);
-			}
+			turnLever(getLocation(), false);
+			setStoredByte(false);
 		}
 	}
 

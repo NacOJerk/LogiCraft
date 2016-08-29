@@ -9,6 +9,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import com.kirelcodes.logicraft.components.Component;
+import com.kirelcodes.logicraft.components.PulseLimiter;
 import com.kirelcodes.logicraft.components.Transistor;
 import com.kirelcodes.logicraft.components.flipflops.DFlipFlop;
 import com.kirelcodes.logicraft.components.flipflops.TFlipFlop;
@@ -51,7 +52,7 @@ public class CommandLoader {
 				return false;
 			}
 		});
-		cm.addCommand(new ExtendedCommandBase("Transmitter") {
+		cm.addCommand(new ExtendedCommandBase("Transmitter".toUpperCase()) {
 
 			@Override
 			public List<String> tabComplete(CommandSender sender, String alias,
@@ -70,6 +71,25 @@ public class CommandLoader {
 				int y = Integer.parseInt(args[1]);
 				int z = Integer.parseInt(args[2]);
 				new Transmitter(p.getLocation(), x, y, z);
+				return false;
+			}
+		});
+		cm.addCommand(new ExtendedCommandBase("PulseLimiter".toUpperCase()) {
+
+			@Override
+			public List<String> tabComplete(CommandSender sender, String alias,
+					String[] args) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public boolean executeCommand(CommandSender sender, String command,
+					String[] args, boolean sentViaPlayer) {
+				if (!sentViaPlayer)
+					return false;
+				Player p = (Player) sender;
+				new PulseLimiter(p.getLocation());
 				return false;
 			}
 		});

@@ -13,6 +13,7 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.Diode;
 import org.bukkit.material.Lever;
 
 import com.kirelcodes.logicraft.utils.NBTRW;
@@ -202,4 +203,24 @@ public abstract class Component {
 		return entites;
 	}
 
+	public static int getRepeaterLevel(Location loc){
+		Block block = loc.getBlock();
+		BlockFace[] goodFaces = { BlockFace.DOWN, BlockFace.EAST,
+				BlockFace.SOUTH, BlockFace.NORTH, BlockFace.WEST, BlockFace.UP };
+		int power = 0;
+		for (BlockFace face : goodFaces) {
+			Block b = block.getRelative(face);
+			if (b.getType() != Material.DIODE_BLOCK_ON)
+				continue;
+			@SuppressWarnings("deprecation")
+			Diode d = new Diode(b.getType(), b.getData());
+			return d.getDelay();
+		}
+		return power;
+	}
+	
+	public int getRepearerLevel(){
+		return getRepeaterLevel(getLocation());
+	}
+	
 }

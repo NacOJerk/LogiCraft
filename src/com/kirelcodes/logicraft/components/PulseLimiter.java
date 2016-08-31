@@ -59,13 +59,14 @@ public class PulseLimiter extends Component{
 				int repeaterDelay = getRepearerLevel();
 				long delay = 1;
 				if(repeaterDelay > 0)
-					delay =+ repeaterDelay;
+					delay += repeaterDelay;
 				turnLever(getLocation(), true);
 				new BukkitRunnable() {
 					
 					@Override
 					public void run() {
 						setStoredByte(true);
+						turnLever(getLocation(), false);
 					}
 				}.runTaskLater(LogiCraft.getInstance(), delay);
 				

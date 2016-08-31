@@ -4,6 +4,7 @@ package com.kirelcodes.logicraft.components;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -91,6 +92,22 @@ public abstract class Component {
 	}
 	protected void setNumberTransistors(int numberTransistors) {
 		this.numberTransistors = numberTransistors;
+	}
+	protected void setHead(Material m){
+		setHead(m, 0);
+	}
+	protected void setHead(Material m , int data){
+		setHead(new ItemStack(m, 1, (short)data));
+	}
+	protected void setHead(ItemStack item){
+		getComponent().setHelmet(item);
+	}
+	protected void setName(String name){
+		getComponent().setCustomName(ChatColor.translateAlternateColorCodes('&', name));
+		getComponent().setCustomNameVisible(true);
+	}
+	protected void setDataSaver(ItemStack data){
+		getComponent().setChestplate(data);
 	}
 	/**
 	 * Returns the amount of redstone wires (That are turned on ) connected to the component
@@ -222,5 +239,6 @@ public abstract class Component {
 	public int getRepearerLevel(){
 		return getRepeaterLevel(getLocation());
 	}
+	
 	
 }
